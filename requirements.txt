@@ -1,0 +1,6 @@
+Django==5.2.18
+mysqlclient==2.3.0
+python-dotenv==1.2.4
+faiss-cpu==1.15.1
+numpy==2.5.4
+sentence-transformers==6.1.0
