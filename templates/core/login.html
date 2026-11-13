@@ -1,0 +1,197 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | ResolveAI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #f5f7ff;
+            background:
+                radial-gradient(ellipse at 15% 20%, rgba(0, 190, 255, .16), transparent 40%),
+                radial-gradient(ellipse at 85% 80%, rgba(142, 54, 255, .18), transparent 42%),
+                #070d20;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 38px;
+            border: 1px solid rgba(130, 157, 220, .22);
+            border-radius: 22px;
+            background: rgba(13, 25, 54, .76);
+            backdrop-filter: blur(22px);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, .4);
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .brand-name {
+            font-size: 30px;
+            font-weight: 750;
+            letter-spacing: -1px;
+        }
+
+        .brand-name span {
+            color: #8ba8df;
+        }
+
+        .brand-subtitle {
+            margin-top: 9px;
+            color: #9eaccb;
+            font-size: 13px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 24px;
+        }
+
+        .intro {
+            margin: 0 0 27px;
+            color: #aab7d3;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        label {
+            display: block;
+            margin: 17px 0 8px;
+            color: #dce5fb;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid rgba(132, 157, 207, .28);
+            border-radius: 10px;
+            outline: none;
+            background: rgba(4, 12, 31, .7);
+            color: white;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #65cfff;
+            box-shadow: 0 0 0 3px rgba(40, 174, 255, .12);
+        }
+
+        .login-button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: 0;
+            border-radius: 10px;
+            background: linear-gradient(100deg, #087fbd, #6744d8);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            filter: brightness(1.12);
+        }
+
+        .error-message {
+            margin-top: 14px;
+            padding: 11px 13px;
+            border: 1px solid rgba(255, 100, 120, .3);
+            border-radius: 9px;
+            background: rgba(180, 45, 70, .13);
+            color: #ffb5c0;
+            font-size: 13px;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 23px;
+            color: #9eb8e8;
+            text-align: center;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 28px 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="login-card">
+        <div class="brand">
+            <div class="brand-name">Resolve<span>AI</span></div>
+            <div class="brand-subtitle">Your AI Workplace Companion</div>
+        </div>
+
+        <h1>Welcome back</h1>
+        <p class="intro">
+            Sign in with your workplace account to access your requests
+            and approvals.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+
+            <label for="id_username">Username</label>
+            <input
+                type="text"
+                name="username"
+                id="id_username"
+                autocomplete="username"
+                required
+                autofocus
+            >
+
+            <label for="id_password">Password</label>
+            <input
+                type="password"
+                name="password"
+                id="id_password"
+                autocomplete="current-password"
+                required
+            >
+
+            {% if form.errors %}
+                <div class="error-message" role="alert">
+                    Invalid username or password. Please try again.
+                </div>
+            {% endif %}
+
+            <button class="login-button" type="submit">
+                Sign in
+            </button>
+        </form>
+
+        <a class="back-link" href="{% url 'home' %}">
+            &#8592; Back to ResolveAI dashboard
+        </a>
+    </main>
+</body>
+</html>
